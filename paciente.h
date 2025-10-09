@@ -10,6 +10,8 @@
 	void pac_imprimir(PACIENTE*paciente);
 	int pac_get_id(PACIENTE*paciente);
 	bool pac_set_id(PACIENTE*paciente, int id);
+	char pac_get_nome(PACIENTE*paciente);
+	bool pac_set_nome(PACIENTE*paciente, char nome[]);
 
 #endif	
 	
