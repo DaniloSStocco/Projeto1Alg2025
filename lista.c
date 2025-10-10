@@ -107,6 +107,13 @@ bool LISTA_inserir(LISTA *lista,PACIENTE *pac){
     return LISTA_inserir_fim(lista, pac);
 }
 
+int LISTA_tamanho(LISTA *lista){
+    if(lista != NULL){
+        return(lista->tamanho);
+    }
+    return(-1);
+}
+
 PACIENTE* LISTA_buscar(LISTA *lista, int chave){
     NO *p;
     if (lista != NULL){
@@ -118,6 +125,30 @@ PACIENTE* LISTA_buscar(LISTA *lista, int chave){
         }
     }
     return(NULL);
+}
+
+PACIENTE* LISTA_remover_inicio(LISTA* lista) {
+    if (lista == NULL || LISTA_vazia(lista)) {
+        return NULL; // Lista inexistente ou vazia
+    }
+    NO* pno = lista->inicio;           // Guarda o primeiro nó
+    PACIENTE* pac = pno->paciente;     // Guarda o paciente que será retornado
+    // Atualiza o início da lista
+    lista->inicio = pno->proximo;
+
+    // Se ainda há elementos, ajusta o anterior do novo início
+    if (lista->inicio != NULL) {
+        lista->inicio->anterior = NULL;
+    } else {
+        // Se não sobrou ninguém, a lista fica vazia, então o fim também vira NULL
+        lista->fim = NULL;
+    }
+    // Libera o nó
+    pno->proximo = NULL;
+    pno->anterior = NULL;
+    free(pno);
+    lista->tamanho--;
+    return pac; // Retorna o paciente removido
 }
 
 PACIENTE* LISTA_remover(LISTA *lista, int chave){
@@ -150,8 +181,8 @@ PACIENTE* LISTA_remover(LISTA *lista, int chave){
 }
 
 bool adicionar_historico(LISTA* lista, int id, char hist[]){
-    printf("Cheguei no lista.c");
-    printf("\nid: %d\nproc: %s", id, hist); //ok
+    //printf("Cheguei no lista.c");
+    //printf("\nid: %d\nproc: %s", id, hist); //ok
     return pac_adicionar_historico(LISTA_buscar(lista, id), hist);
 }
 

@@ -10,7 +10,7 @@
 	bool LISTA_inserir(LISTA *lista, PACIENTE *pac);
 	PACIENTE* LISTA_buscar(LISTA *lista, int chave);
 	PACIENTE *LISTA_remover(LISTA *lista, int chave);
-	//ITEM *LISTA_remover_inicio(LISTA *lista);
+	PACIENTE *LISTA_remover_inicio(LISTA *lista);
 	//ITEM *LISTA_remover_fim(LISTA *lista);
 	PACIENTE* LISTA_buscar(LISTA *lista, int chave);
 	bool LISTA_apagar(LISTA **lista);

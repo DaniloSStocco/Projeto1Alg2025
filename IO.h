@@ -1,6 +1,7 @@
 #ifndef IO_H
 	#define IO_H
-	#include "item.h"
+	#include "paciente.h"
+    #include "pilha.h"
     #include "fila.h"
     #include "lista.h"
     #include <stdbool.h>

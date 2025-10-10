@@ -28,7 +28,7 @@ bool pac_apagar (PACIENTE **paciente){
         *paciente = NULL;
         return(true);
     }
-    printf("Esse paciente não existe");
+    printf("Esse paciente nao existe");
     return(false);
 }
 
@@ -36,7 +36,7 @@ int pac_get_id(PACIENTE* paciente){
     if(paciente != NULL){
         return(paciente->id);
     }
-    printf("Esse paciente não existe");
+    printf("Esse paciente nao existe");
     return (-1);
 }
 
@@ -45,7 +45,7 @@ bool pac_set_id(PACIENTE* paciente, int id){
         paciente->id = id;
         return(true);
     }
-    printf("Esse paciente não existe");
+    printf("Esse paciente nao existe");
     return(false);
 }
 
@@ -53,7 +53,7 @@ char *pac_get_nome(PACIENTE* paciente){
     if(paciente != NULL){
         return(paciente->nome);
     }
-    printf("Esse paciente não existe");
+    printf("Esse paciente nao existe");
     return (NULL);
 }
 
@@ -61,7 +61,7 @@ PILHA* pac_get_pilha(PACIENTE* paciente){
     if(paciente != NULL){
         return(paciente->pilha);
     }
-    printf("Esse paciente não existe");
+    printf("Esse paciente nao existe");
     return (NULL);
 }
 
@@ -69,7 +69,7 @@ PILHA** pac_get_refpilha(PACIENTE* paciente){
     if(paciente != NULL){
         return(&paciente->pilha);
     }
-    printf("Esse paciente não existe");
+    printf("Esse paciente nao existe");
     return (NULL);
 }
 
@@ -78,18 +78,22 @@ bool pac_set_nome(PACIENTE* paciente, char nome[]){
         strcpy(paciente->nome, nome);
         return(true);
     }
-    printf("Esse paciente não existe");
+    printf("Esse paciente nao existe");
     return(false);
 }
 
 bool pac_adicionar_historico(PACIENTE* paciente, char hist[100]){
     if(paciente != NULL){ //encontrou
-        printf("\ncheguei no pac_add_hist e encontrei o %s, que vai fazer um %s", paciente->nome, hist);
+        if(pilha_cheia(paciente->pilha)){
+            printf("\nO paciente atingiu o limite de procedimentos");
+            return(false);
+        }
+        //printf("\ncheguei no pac_add_hist e encontrei o %s, que vai fazer um %s", paciente->nome, hist);
         PROCEDIMENTO *proc = criarproc(hist);
         pilha_empilhar(paciente->pilha, proc);
         return(true);
     }
-    printf("Esse paciente não existe");
+    printf("Esse paciente nao existe");
     return(false);
 }
 
