@@ -6,7 +6,7 @@ struct no_{
     NO *anterior;
     NO *proximo;
 };
-typedef 
+
 struct lista_{
     NO *inicio;
     NO *fim;
@@ -26,11 +26,11 @@ LISTA* LISTA_criar(bool ordenada){
     return(lista);
 }   
 
-void LISTA_esvazia (NO *ptr){
+void LISTA_esvazia(NO *ptr){
 if (ptr != NULL){
-    if(ptr->proximo != NULL)
-        lista_esvazia(ptr->proximo);
-
+    if(ptr->proximo != NULL){
+        LISTA_esvazia(ptr->proximo);
+    }
         pac_apagar(&ptr->paciente);
         ptr->anterior = NULL;
         free(ptr); 
@@ -38,17 +38,28 @@ if (ptr != NULL){
     }
 }
 
+bool LISTA_vazia(LISTA* lista){
+    if(lista->tamanho == 0){
+        return(true);
+    }
+    else{
+        return(false);
+    }
+}
+
 bool LISTA_apagar(LISTA **ptr){
     if(*ptr == NULL){
-        return;
+        return false;
     }
     LISTA_esvazia((*ptr)->inicio);
     free(*ptr);
     *ptr = NULL;
+    return true;
 }
 
+
 bool LISTA_inserir_inicio(LISTA* lista, PACIENTE* pac){
-    if((lista != NULL)&&(!LISTA_cheia(lista))){
+    if((lista != NULL)){
         NO *pnovo = (NO*) malloc(sizeof(NO));
         pnovo->paciente = pac;
         if(lista->inicio == NULL){
@@ -70,7 +81,7 @@ bool LISTA_inserir_inicio(LISTA* lista, PACIENTE* pac){
 }
 
 bool LISTA_inserir_fim(LISTA* lista, PACIENTE* pac){
-    if((lista!= NULL) && (!LISTA_cheia(lista))){
+    if((lista!= NULL)){
         NO* pnovo = (NO*) malloc(sizeof(NO));
         pnovo->paciente = pac;
         if(lista->inicio == NULL){
@@ -91,11 +102,15 @@ bool LISTA_inserir_fim(LISTA* lista, PACIENTE* pac){
     }
 }
 
+bool LISTA_inserir(LISTA *lista,PACIENTE *pac){
+    return LISTA_inserir_fim(lista, pac);
+}
+
 PACIENTE* LISTA_buscar(LISTA *lista, int chave){
     NO *p = NULL;
     if( (lista != NULL) && !LISTA_vazia(lista)){
         p = lista->inicio;
-        while(p != NULL && (item_get_chave(p->paciente) != chave)){
+        while(p != NULL && (pac_get_id(p->paciente) != chave)){
             p = p->proximo;
         }
         return (p->paciente);
@@ -107,7 +122,7 @@ PACIENTE* LISTA_remover(LISTA *lista, int chave){
     NO *p = NULL;
     if( (lista != NULL) && !LISTA_vazia(lista)){
         p = lista->inicio;
-        while(p != NULL && (item_get_chave(p->paciente) != chave)){
+        while(p != NULL && (pac_get_id(p->paciente) != chave)){
             p = p->proximo;
         }
         if(p != NULL){
@@ -123,7 +138,7 @@ PACIENTE* LISTA_remover(LISTA *lista, int chave){
             PACIENTE *pac = p->paciente;
             p->proximo = NULL;
             p->anterior = NULL;
-            pilha_apagar();
+            pilha_apagar(pac_get_pilha(pac));
             free(p);
             lista->tamanho--;
             return(pac);
@@ -132,10 +147,10 @@ PACIENTE* LISTA_remover(LISTA *lista, int chave){
     return(NULL);
 }
 
-void adicionar_historico(LISTA* lista, int id, char hist[]){
-    pac_adicionar_historico(LISTA_buscar(lista, id), hist);
+bool adicionar_historico(LISTA* lista, int id, char hist[]){
+    return pac_adicionar_historico(LISTA_buscar(lista, id), hist);
 }
 
-void remover_historico(LISTA* lista, int id){
-    pac_remover_historico(LISTA_buscar(lista, id));
+bool remover_historico(LISTA* lista, int id){
+    return pac_remover_historico(LISTA_buscar(lista, id));
 }

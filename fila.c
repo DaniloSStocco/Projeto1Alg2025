@@ -48,10 +48,8 @@ bool FILA_inserir(FILA *fila, PACIENTE *pac){
         }
         //printf("\nFalha na operacao: Fila cheia!");
     }
-    else{
         //printf("\nFila não existe!")
-        return(NULL);
-    }
+    return(false);
 }
 
 PACIENTE *FILA_remover(FILA *fila){
@@ -80,14 +78,27 @@ int FILA_tamanho(FILA *fila){
     }
     else{
         //printf("\nFila não existe");
-        return(NULL);
+        return(-1);
     }
 }
 
-void FILA_imprimir(FILA *f){
-    int cont = f->inicio;
-    while(cont != f->fim){
-        pac_imprimir(f->filapacs[cont]);
-        cont = (cont+1)%TAM_MAX;
+bool FILA_imprimir(FILA *f) {
+    if (f == NULL || f->tamanho == 0) {
+        printf("\nA fila está vazia ou não existe.\n");
+        return false;
     }
+
+    printf("\n--- Fila de Pacientes ---\n");
+
+    int cont = f->inicio;
+    int i = 0;
+
+    while (i < f->tamanho) {
+        pac_imprimir(f->filapacs[cont]);
+        cont = (cont + 1) % TAM_MAX;
+        i++;
+    }
+
+    printf("\n--------------------------");
+    return true;
 }

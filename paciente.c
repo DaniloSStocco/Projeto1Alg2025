@@ -1,9 +1,5 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "paciente.h"
-#include "pilha.h"
 #define MAX 1020
+#include "paciente.h"
 struct paciente_{
     char nome[MAX];
     int id;
@@ -51,12 +47,20 @@ bool pac_set_id(PACIENTE* paciente, int id){
     return(false);
 }
 
-char pac_get_nome(PACIENTE* paciente){
+char *pac_get_nome(PACIENTE* paciente){
     if(paciente != NULL){
         return(paciente->nome);
     }
     printf("Esse paciente não existe");
-    return (-1);
+    return (NULL);
+}
+
+PILHA* pac_get_pilha(PACIENTE* paciente){
+    if(paciente != NULL){
+        return(paciente->pilha);
+    }
+    printf("Esse paciente não existe");
+    return (NULL);
 }
 
 bool pac_set_nome(PACIENTE* paciente, char nome[MAX]){
