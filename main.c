@@ -9,6 +9,10 @@ int main(){
     LISTA *lista_geral = LISTA_criar(false);
     FILA *triagem = FILA_criar();
 
+    char tempnome[TAM];
+    int tempid;
+    char proced[TAM];
+
     int escolha;
     printf("---SISTEMA DE PRONTO-SOCORRO DO SUS---");
     do{
@@ -19,8 +23,8 @@ int main(){
         printf("\n4. Desfazer procedimento do historico medico");
         printf("\n5. Chamar paciente para atendimento");
         printf("\n6. Mostrar fila de espera");
-        printf("\n7. Mostrar histórico do paciente");
-        printf("\n8. Sair");
+        printf("\n7. Mostrar historico do paciente");
+        printf("\n8. Sair\n");
 
         scanf("%d", &escolha);
 
@@ -28,16 +32,25 @@ int main(){
         {
         case 1: //Registrar paciente
         {
-            int tempid=0; 
-            printf("\n\nDigite o id desse paciente (crie um se ele nao for registrado):");
+            fflush(stdin);
+            //int tempid=0; 
+            printf("\n\nDigite o id desse paciente (crie um se ele nao for registrado): ");
             scanf("%d", &tempid);
-            if(LISTA_buscar(lista_geral, tempid) != NULL){
-                FILA_inserir(triagem ,LISTA_buscar(lista_geral, tempid));
+
+            if(LISTA_buscar(lista_geral, tempid) != NULL){ //encontrou alguem na lista
+                if(FILA_buscar(triagem ,tempid) != NULL){ //encontrou esse alguem na fila!!
+                    printf("\nO paciente ja esta na fila");
+                }
+                else{
+                FILA_inserir(triagem ,LISTA_buscar(lista_geral, tempid));}
             }
             else{
-                char tempnome[TAM];
-                printf("\nDigite o nome do novo paciente:");
-                scanf("%101[^\n]", tempnome);
+                //char tempnome[TAM];
+                getchar();
+                printf("\nDigite o nome do novo paciente: ");
+                fgets(tempnome, TAM, stdin);
+                tempnome[strcspn(tempnome, "\n")] = '\0';
+
                 PACIENTE *pac = pac_criar(tempnome, tempid);
                 LISTA_inserir(lista_geral, pac);
                 FILA_inserir(triagem, pac);
@@ -46,33 +59,41 @@ int main(){
         case 2: //Registrar obito de paciente
         {
             printf("\nDigite o id do paciente a ser registrado como falecido:");
-            int tempid=0;
+            tempid=0;
             scanf("%d", &tempid);
-            PACIENTE *pac = LISTA_remover(lista_geral, tempid);
+            if(FILA_buscar(triagem ,tempid) != NULL){
+                printf("\nO paciente nao pode morrer, pois esta na fila");
+            }
+            else{
+                PACIENTE *pac = LISTA_remover(lista_geral, tempid);
             if(pac != NULL){
                 printf("\nO paciente %s, de id %d foi excluido", pac_get_nome(pac), pac_get_id(pac));
             }
             else{
                 printf("paciente nao encontrado");
             }
+            }
+            
             break;}
         case 3: //Adicionar procedimento ao historico medico
         {
-            int tempid=0;
+            tempid=0;
             printf("\nDigite o id do paciente que tera o procedimento registrado:");
             scanf("%d", &tempid);
 
-            char proced[TAM];
-            printf("\nEscreva o procedimento:");
-            scanf(" %101[^\n]", proced);
+            //char proced[TAM];
+            printf("\nEscreva o procedimento: ");
+            getchar();
+            fgets(proced, TAM, stdin);
+                proced[strcspn(proced, "\n")] = '\0';
             if(adicionar_historico(lista_geral, tempid, proced)){
                 printf("\nProcedimento adicionado com sucesso");
             }
             break;}
         case 4: //Desfazer procedimento do historico medico
         {
-            int tempid=0;
-            printf("\nDigite o id do paciente que tera o procedimento removido:");
+            tempid=0;
+            printf("\nDigite o id do paciente que tera o procedimento removido: ");
             scanf("%d", &tempid);
             if(remover_historico(lista_geral, tempid)){
                 printf("\nProcedimento removido com exito");
@@ -97,8 +118,9 @@ int main(){
             break;}
         case 7: //Mostrar histórico do paciente
         {
-            int tempid=0;
-            printf("\nDigite o id do paciente para ver eu historico:");
+            tempid=0;
+            printf("\nDigite o id do paciente para ver eu historico: ");
+            getchar();
             scanf("%d", &tempid);
             pilha_imprimir(pac_get_pilha(LISTA_buscar(lista_geral, tempid)));
             break;}

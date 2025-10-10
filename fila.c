@@ -84,7 +84,7 @@ int FILA_tamanho(FILA *fila){
 
 bool FILA_imprimir(FILA *f) {
     if (f == NULL || f->tamanho == 0) {
-        printf("\nA fila está vazia ou não existe.\n");
+        printf("\nA fila esta vazia ou nao existe.\n");
         return false;
     }
 
@@ -101,4 +101,21 @@ bool FILA_imprimir(FILA *f) {
 
     printf("\n--------------------------");
     return true;
+}
+
+PACIENTE *FILA_buscar(FILA *fila, int id) {
+    if(fila == NULL || fila->tamanho == 0) {
+        return NULL; // fila vazia ou inexistente
+    }
+
+    int cont = fila->inicio;
+    for(int i = 0; i < fila->tamanho; i++) {
+        PACIENTE *p = fila->filapacs[cont];
+        if(p != NULL && pac_get_id(p) == id) {
+            return p; // paciente encontrado
+        }
+        cont = (cont + 1) % TAM_MAX;
+    }
+
+    return NULL; // paciente não encontrado
 }

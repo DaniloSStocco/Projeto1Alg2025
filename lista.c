@@ -1,4 +1,5 @@
 #include "lista.h"
+#include "pilha.h"
 
 typedef struct no_ NO;
 struct no_{
@@ -107,13 +108,14 @@ bool LISTA_inserir(LISTA *lista,PACIENTE *pac){
 }
 
 PACIENTE* LISTA_buscar(LISTA *lista, int chave){
-    NO *p = NULL;
-    if( (lista != NULL) && !LISTA_vazia(lista)){
+    NO *p;
+    if (lista != NULL){
         p = lista->inicio;
-        while(p != NULL && (pac_get_id(p->paciente) != chave)){
+        while (p != NULL) {  
+            if (pac_get_id(p->paciente) == chave)
+                {return (p->paciente);}
             p = p->proximo;
         }
-        return (p->paciente);
     }
     return(NULL);
 }
@@ -122,7 +124,7 @@ PACIENTE* LISTA_remover(LISTA *lista, int chave){
     NO *p = NULL;
     if( (lista != NULL) && !LISTA_vazia(lista)){
         p = lista->inicio;
-        while(p != NULL && (pac_get_id(p->paciente) != chave)){
+        while(p->proximo != NULL && (pac_get_id(p->paciente) != chave)){
             p = p->proximo;
         }
         if(p != NULL){
@@ -138,7 +140,7 @@ PACIENTE* LISTA_remover(LISTA *lista, int chave){
             PACIENTE *pac = p->paciente;
             p->proximo = NULL;
             p->anterior = NULL;
-            pilha_apagar(pac_get_pilha(pac));
+            pilha_apagar(pac_get_refpilha(pac));
             free(p);
             lista->tamanho--;
             return(pac);

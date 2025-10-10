@@ -1,11 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "procedimento.h"
 
 struct procedimento_ {
     char conteudo[100];
-}//Struct do procedimento, contendo uma string de, no máximo, 100 caracteres (tamanho máximo do histórico)
+};//Struct do procedimento, contendo uma string de, no máximo, 100 caracteres (tamanho máximo do histórico)
 
 PROCEDIMENTO* criarproc(char conteudo[]){
     PROCEDIMENTO* procedimento;
@@ -44,3 +45,18 @@ int contproc(PROCEDIMENTO* procedimento){
     return(-1);
 }//Função para contar a quantidade de caracteres do procedimento, a fim de usar essa informação e manter o tamanho
 //máximo de caracteres no histórico
+
+char* proc_get_conteudo(PROCEDIMENTO* proc){
+    if(proc != NULL){
+        return(proc->conteudo);
+    }
+    return("\nNao encontrado");
+}
+
+bool proc_set_conteudo(PROCEDIMENTO* proc, char cont[]){
+    if(proc != NULL){
+        strcpy(proc->conteudo, cont);
+        return(true);
+    }
+    return(false);
+}

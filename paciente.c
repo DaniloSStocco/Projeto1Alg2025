@@ -1,5 +1,6 @@
 #define MAX 1020
 #include "paciente.h"
+#include "pilha.h"
 struct paciente_{
     char nome[MAX];
     int id;
@@ -63,7 +64,15 @@ PILHA* pac_get_pilha(PACIENTE* paciente){
     return (NULL);
 }
 
-bool pac_set_nome(PACIENTE* paciente, char nome[MAX]){
+PILHA** pac_get_refpilha(PACIENTE* paciente){
+    if(paciente != NULL){
+        return(&paciente->pilha);
+    }
+    printf("Esse paciente não existe");
+    return (NULL);
+}
+
+bool pac_set_nome(PACIENTE* paciente, char nome[]){
     if(paciente != NULL){
         strcpy(paciente->nome, nome);
         return(true);
@@ -73,8 +82,9 @@ bool pac_set_nome(PACIENTE* paciente, char nome[MAX]){
 }
 
 bool pac_adicionar_historico(PACIENTE* paciente, char hist[100]){
-    if(paciente != NULL){
-        pilha_empilhar(paciente->pilha, hist);
+    if(paciente != NULL){ //encontrou
+        PROCEDIMENTO *proc = criarproc(hist);
+        pilha_empilhar(paciente->pilha, proc);
         return(true);
     }
     printf("Esse paciente não existe");
@@ -94,5 +104,6 @@ void pac_imprimir(PACIENTE* paciente){
     if (paciente != NULL){
         printf("\nNome do paciente: %s\nID do paciente: %d\n", paciente->nome, paciente->id);
     }
-    printf("Esse paciente não existe");
+    else
+        printf("Esse paciente não existe");
 }

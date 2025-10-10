@@ -1,8 +1,9 @@
 #include "pilha.h"
+#include "procedimento.h"
     typedef struct no NO;
 
 struct no {
-    char historico[100];
+    PROCEDIMENTO *historico;
     NO* anterior;
 };
 
@@ -54,18 +55,18 @@ int pilha_tamanho(PILHA* pilha) {
     return ((pilha != NULL) ? pilha->tamanho : -1);
 }
 
-char* pilha_topo(PILHA* pilha) {
+PROCEDIMENTO* pilha_topo(PILHA* pilha) {
     if ((pilha != NULL) && (!pilha_vazia(pilha)) ){
         return (pilha->topo->historico);
     }
     return (NULL);
 }
 
-bool pilha_empilhar(PILHA* pilha, char hist[]) {
+bool pilha_empilhar(PILHA* pilha, PROCEDIMENTO* proc) {
     if (!pilha_cheia(pilha)) {
         NO* pnovo = (NO *) malloc(sizeof (NO));
         if (pnovo != NULL) {
-            strcpy(pnovo->historico, hist);
+            pnovo->historico = proc;
             pnovo->anterior = pilha->topo;
             pilha->topo = pnovo;
             pilha->tamanho++;
@@ -75,15 +76,14 @@ bool pilha_empilhar(PILHA* pilha, char hist[]) {
     return (false);
 }
 
-char* pilha_desempilhar(PILHA* pilha) {
+PROCEDIMENTO* pilha_desempilhar(PILHA* pilha) {
     if ((pilha != NULL) && (!pilha_vazia(pilha)) ){
         NO* pno = pilha->topo;
-        char hist[TAM];
-        strcpy(hist,pilha->topo->historico);
+        PROCEDIMENTO* proc = pilha->topo->historico;
         pilha->topo = pilha->topo->anterior;
         pno->anterior=NULL; free(pno); pno=NULL;
         pilha->tamanho--;
-        return (*hist);
+        return (proc);
     }
     return (NULL);
 }
@@ -92,7 +92,7 @@ bool pilha_imprimir(PILHA *pilha){
     if(pilha != NULL && (!pilha_vazia(pilha))){
         NO *pno = pilha->topo;
         while(pno->anterior != NULL){
-            printf("\nProcedimento: %s", pno->historico);
+            imprimirproc(pno->historico);
         }
         return(true);
     }

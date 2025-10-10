@@ -15,6 +15,7 @@
 	bool FILA_vazia(FILA *fila);
 	bool FILA_cheia(FILA *fila);
 	bool FILA_imprimir(FILA *f);
+	PACIENTE *FILA_buscar(FILA *fila, int id);
 
 	  
 #endif
