@@ -1,8 +1,9 @@
 #include "fila.h"
+#include "paciente.h"
 #define TAM_MAX 50
 
 struct fila_{
-    ITEM *fila[TAM_MAX];
+    PACIENTE *filapacs[TAM_MAX];
     int inicio;
     int fim;
     int tamanho;
@@ -36,10 +37,10 @@ bool FILA_vazia(FILA *fila){
     }
 }
 
-bool FILA_inserir(FILA *fila, ITEM *item){
+bool FILA_inserir(FILA *fila, PACIENTE *pac){
     if(fila != NULL ){
         if(!FILA_cheia(fila)){
-            fila->fila[fila->fim] = item;
+            fila->filapacs[fila->fim] = pac;
             fila->fim = (fila->fim+1)%TAM_MAX;
             fila->tamanho++;
 
@@ -53,11 +54,11 @@ bool FILA_inserir(FILA *fila, ITEM *item){
     }
 }
 
-ITEM *FILA_remover(FILA *fila){
+PACIENTE *FILA_remover(FILA *fila){
     if(fila != NULL){
         if(!FILA_vazia(fila)){
-            ITEM *p = fila->fila[fila->inicio];
-            fila->fila[fila->inicio] = NULL;
+            PACIENTE *p = fila->filapacs[fila->inicio];
+            fila->filapacs[fila->inicio] = NULL;
             fila->inicio = (fila->inicio+1)%TAM_MAX;
             fila->tamanho--;
             return(p);
@@ -83,6 +84,10 @@ int FILA_tamanho(FILA *fila){
     }
 }
 
-void FILA_imprimir(FILA *fila){
-    
+void FILA_imprimir(FILA *f){
+    int cont = f->inicio;
+    while(cont != f->fim){
+        pac_imprimir(f->filapacs[cont]);
+        cont = (cont+1)%TAM_MAX;
+    }
 }

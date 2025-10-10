@@ -12,6 +12,8 @@
 	bool pac_set_id(PACIENTE*paciente, int id);
 	char pac_get_nome(PACIENTE*paciente);
 	bool pac_set_nome(PACIENTE*paciente, char nome[]);
+	bool pac_adicionar_historico(PACIENTE* paciente, char hist[100]);
+	bool pac_remover_historico(PACIENTE* paciente);
 
 #endif	
 	

@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include <string.h>
 #include "paciente.h"
+#include "pilha.h"
 #define MAX 1020
 struct paciente_{
     char nome[MAX];
     int id;
+    PILHA *pilha;
 };
 
 PACIENTE *pac_criar (char nome[],int id){
@@ -60,6 +62,24 @@ char pac_get_nome(PACIENTE* paciente){
 bool pac_set_nome(PACIENTE* paciente, char nome[MAX]){
     if(paciente != NULL){
         strcpy(paciente->nome, nome);
+        return(true);
+    }
+    printf("Esse paciente não existe");
+    return(false);
+}
+
+bool pac_adicionar_historico(PACIENTE* paciente, char hist[100]){
+    if(paciente != NULL){
+        pilha_empilhar(paciente->pilha, hist);
+        return(true);
+    }
+    printf("Esse paciente não existe");
+    return(false);
+}
+
+bool pac_remover_historico(PACIENTE* paciente){
+    if(paciente != NULL){
+        pilha_desempilhar(paciente->pilha);
         return(true);
     }
     printf("Esse paciente não existe");
