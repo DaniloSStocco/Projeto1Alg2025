@@ -150,6 +150,8 @@ PACIENTE* LISTA_remover(LISTA *lista, int chave){
 }
 
 bool adicionar_historico(LISTA* lista, int id, char hist[]){
+    printf("Cheguei no lista.c");
+    printf("\nid: %d\nproc: %s", id, hist); //ok
     return pac_adicionar_historico(LISTA_buscar(lista, id), hist);
 }
 

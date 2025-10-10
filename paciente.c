@@ -15,6 +15,7 @@ PACIENTE *pac_criar (char nome[],int id){
     if (paciente != NULL){
         strcpy(paciente->nome, nome);
         paciente->id = id;
+        paciente->pilha = pilha_criar();
         return (paciente);
     }
     printf("Memória cheia, não foi possível adicionar esse paciente");
@@ -83,6 +84,7 @@ bool pac_set_nome(PACIENTE* paciente, char nome[]){
 
 bool pac_adicionar_historico(PACIENTE* paciente, char hist[100]){
     if(paciente != NULL){ //encontrou
+        printf("\ncheguei no pac_add_hist e encontrei o %s, que vai fazer um %s", paciente->nome, hist);
         PROCEDIMENTO *proc = criarproc(hist);
         pilha_empilhar(paciente->pilha, proc);
         return(true);

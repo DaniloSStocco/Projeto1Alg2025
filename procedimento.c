@@ -13,7 +13,7 @@ PROCEDIMENTO* criarproc(char conteudo[]){
 
     procedimento = (PROCEDIMENTO*) malloc(sizeof(PROCEDIMENTO));
     if (procedimento != NULL){
-        strcpy(conteudo,procedimento->conteudo);
+        strcpy(procedimento->conteudo, conteudo);
         return(procedimento);
     }
     printf("\nNão foi possível criar esse procedimento, memória cheia\n");
@@ -34,7 +34,8 @@ void imprimirproc(PROCEDIMENTO* procedimento){
     if(procedimento != NULL){
         printf("\nProcedimento: %s", procedimento->conteudo);
     }
-    printf("Esse procedimento não existe");
+    else{
+    printf("Esse procedimento nao existe");}
 }//Imprime o procedimento
 
 int contproc(PROCEDIMENTO* procedimento){

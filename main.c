@@ -89,6 +89,9 @@ int main(){
             if(adicionar_historico(lista_geral, tempid, proced)){
                 printf("\nProcedimento adicionado com sucesso");
             }
+            else{
+                printf("Erro na operacao");
+            }
             break;}
         case 4: //Desfazer procedimento do historico medico
         {
@@ -119,7 +122,7 @@ int main(){
         case 7: //Mostrar histórico do paciente
         {
             tempid=0;
-            printf("\nDigite o id do paciente para ver eu historico: ");
+            printf("\nDigite o id do paciente para ver seu historico: ");
             getchar();
             scanf("%d", &tempid);
             pilha_imprimir(pac_get_pilha(LISTA_buscar(lista_geral, tempid)));
