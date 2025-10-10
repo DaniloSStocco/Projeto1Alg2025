@@ -64,14 +64,14 @@ PROCEDIMENTO* pilha_topo(PILHA* pilha) {
 
 bool pilha_empilhar(PILHA* pilha, PROCEDIMENTO* proc) {
     if (!pilha_cheia(pilha)) {
-        printf("\npilha empilhar");
+        //printf("\npilha empilhar");
         NO* pnovo = (NO *) malloc(sizeof (NO));
         if (pnovo != NULL) {
             pnovo->historico = proc;
             pnovo->anterior = pilha->topo;
             pilha->topo = pnovo;
             pilha->tamanho++;
-            printf("\nFoi empilhado o procedimento %s", proc_get_conteudo(proc));
+            //printf("\nFoi empilhado o procedimento %s", proc_get_conteudo(proc));
             return (true);
         }
     }
@@ -91,13 +91,15 @@ PROCEDIMENTO* pilha_desempilhar(PILHA* pilha) {
 }
 
 bool pilha_imprimir(PILHA *pilha){
-    printf("\nCheguei no pilha imprimir");
+    //printf("\nCheguei no pilha imprimir");
     if(pilha != NULL && !pilha_vazia(pilha)){
         NO *pno = pilha->topo;
+        printf("\n---------PROCEDIMENTOS-----------");
         while(pno != NULL){
             imprimirproc(pno->historico);
             pno = pno->anterior;
         }
+        printf("\n---------------------------------");
         return true;
     }
     else{

@@ -119,3 +119,16 @@ PACIENTE *FILA_buscar(FILA *fila, int id) {
 
     return NULL; // paciente não encontrado
 }
+void FILA_apagar(FILA **fila) {
+    if (fila == NULL || *fila == NULL)
+        return;
+
+    // Limpa os ponteiros da fila (não apaga os pacientes)
+    for (int i = 0; i < (*fila)->tamanho; i++) {
+        (*fila)->filapacs[i] = NULL;
+    }
+
+    // Libera a estrutura da fila
+    free(*fila);
+    *fila = NULL;
+}

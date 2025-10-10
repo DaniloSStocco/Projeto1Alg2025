@@ -2,12 +2,13 @@
 #include "fila.h"
 #include "pilha.h"
 #include "paciente.h"
-//#include "IO.h"
-
+#include "IO.h"
 
 int main(){
     LISTA *lista_geral = LISTA_criar(false);
     FILA *triagem = FILA_criar();
+
+    LOAD(&lista_geral, &triagem);
 
     char tempnome[TAM];
     int tempid;
@@ -90,7 +91,7 @@ int main(){
                 printf("\nProcedimento adicionado com sucesso");
             }
             else{
-                printf("Erro na operacao");
+                printf("\nErro na operacao");
             }
             break;}
         case 4: //Desfazer procedimento do historico medico
@@ -133,7 +134,11 @@ int main(){
             break;}
 
         default:
+            printf("\nEscolha invalida");
             break;
         }
     }while(escolha != 8);
+
+    SAVE(lista_geral, triagem);
+
 }
