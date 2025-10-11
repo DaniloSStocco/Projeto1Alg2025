@@ -3,9 +3,10 @@
 #include <string.h>
 #include <stdbool.h>
 #include "procedimento.h"
+#define MAX 100
 
 struct procedimento_ {
-    char conteudo[100];
+    char conteudo[MAX];
 };//Struct do procedimento, contendo uma string de, no máximo, 100 caracteres (tamanho máximo do histórico)
 
 PROCEDIMENTO* criarproc(char conteudo[]){
