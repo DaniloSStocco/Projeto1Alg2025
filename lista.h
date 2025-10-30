@@ -2,7 +2,6 @@
 	#define LISTA_H
 
 	#include "paciente.h"
-	#include "item.h"
 	                       
 	typedef struct lista_ LISTA;
 
