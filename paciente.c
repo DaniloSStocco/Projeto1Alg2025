@@ -4,10 +4,11 @@
 struct paciente_{
     char nome[MAX];
     int id;
+    int prioridade;
     PILHA *pilha;
 };
 
-PACIENTE *pac_criar (char nome[],int id){
+PACIENTE *pac_criar (char nome[],int id, int prior){
     PACIENTE *paciente;
 
     paciente = (PACIENTE*)malloc(sizeof(PACIENTE));
@@ -15,6 +16,7 @@ PACIENTE *pac_criar (char nome[],int id){
     if (paciente != NULL){
         strcpy(paciente->nome, nome);
         paciente->id = id;
+        paciente->prioridade = prior;
         paciente->pilha = pilha_criar();
         return (paciente);
     }
@@ -43,6 +45,23 @@ int pac_get_id(PACIENTE* paciente){
 bool pac_set_id(PACIENTE* paciente, int id){
     if(paciente != NULL){
         paciente->id = id;
+        return(true);
+    }
+    printf("Esse paciente nao existe");
+    return(false);
+}
+
+int pac_get_prioridade(PACIENTE* paciente){
+    if(paciente != NULL){
+        return(paciente->prioridade);
+    }
+    printf("Esse paciente nao existe");
+    return (-1);
+}
+
+bool pac_set_prioridade(PACIENTE* paciente, int prior){
+    if(paciente != NULL){
+        paciente->prioridade = prior;
         return(true);
     }
     printf("Esse paciente nao existe");
