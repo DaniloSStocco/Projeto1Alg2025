@@ -1,7 +1,6 @@
 
 #ifndef FILA_H
 	#define FILA_H
-	#include "item.h"
 	#include "paciente.h"
 
 	typedef struct fila_ FILA;
