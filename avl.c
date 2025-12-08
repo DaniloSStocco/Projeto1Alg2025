@@ -14,13 +14,13 @@ struct no_{
     int altura;
 };
 
-struct avl{
+struct avl_{
     NO* raiz;
     int profundidade;
 };
 
 AVL* avl_criar(void){
-    AVL *T = (AVL*) malloc(sizeof(AVL));
+    AVL* T = (AVL*) malloc(sizeof(AVL));
     if(T != NULL) {
         T->raiz = NULL; T->profundidade = -1;
     }
