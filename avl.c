@@ -240,3 +240,25 @@ void avl_imprimir2(NO* raiz){
 void avl_imprimir(AVL* T){
     avl_imprimir2(T->raiz);
 }
+
+int avl_quantidade2(NO* raiz) {
+    if (raiz == NULL)
+        return 0;
+
+    return 1 + avl_quantidade2(raiz->esq) + avl_quantidade2(raiz->dir);
+}
+
+int avl_quantidade(AVL* T) {
+    return avl_quantidade2(T->raiz);
+}
+
+void em_ordem(NO *r, void (*visitar)(PACIENTE*)) {
+    if (!r) return;
+    em_ordem(r->esq, visitar);
+    visitar(r->pac);
+    em_ordem(r->dir, visitar);
+}
+
+void avl_em_ordem(AVL *T, void (*visitar)(PACIENTE*)) {
+    em_ordem(T->raiz, visitar);
+}

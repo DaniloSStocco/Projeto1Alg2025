@@ -15,5 +15,8 @@
 //    int avl_altura_no(NO* raiz);
     bool avl_vazia(AVL* T);
     void avl_imprimir(AVL* T);
+    int avl_quantidade(AVL* T);
+
+    void avl_em_ordem(AVL *T, void (*visitar)(PACIENTE*));
 
 #endif

@@ -1,12 +1,12 @@
 #ifndef IO_H
 	#define IO_H
+    #define TAM 100
 	#include "paciente.h"
-    #include "pilha.h"
-    #include "fila.h"
-    #include "lista.h"
+    #include "avl.h"
+    #include "heap.h"
     #include <stdbool.h>
 
-    bool SAVE(LISTA *lista, FILA *fila); // Salva os itens da lista e da fila em arquivos
-    bool LOAD(LISTA **lista, FILA **fila); // Carrega os itens dos arquivos na lista e na fila
+    bool SAVE(AVL *lista, HEAP *fila); // Salva os itens da lista e da fila em arquivos
+    bool LOAD(AVL **lista, HEAP **fila); // Carrega os itens dos arquivos na lista e na fila
 	  
 #endif

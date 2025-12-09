@@ -15,8 +15,8 @@ int comparar(PACIENTE *a,PACIENTE *b) {
     int pa = pac_get_prioridade(a);
     int pb = pac_get_prioridade(b);
 
-    if (pa > pb) return 1;
-    if (pa < pb) return -1;
+    if (pb > pa) return 1;
+    if (pb < pa) return -1;
     return 0;
 }
 
@@ -185,3 +185,11 @@ void heap_imprimir(HEAP *h) {
     free(copia.v);
 }
 
+PACIENTE* heap_buscar(HEAP* h, int id){
+    for(int i=0; i< (h->tamanho); i++){
+        if(id == pac_get_id(h->v[i])){
+            return h->v[i];
+        }
+    }
+    return NULL;
+}

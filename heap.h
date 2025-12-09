@@ -19,4 +19,6 @@
     PACIENTE* heap_topo(HEAP* h);
 
     void heap_imprimir(HEAP* h);
+
+    PACIENTE* heap_buscar(HEAP* h, int id);
 #endif
