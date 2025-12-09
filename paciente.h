@@ -11,7 +11,8 @@ typedef struct pilha_ PILHA;
 
 PACIENTE* pac_criar(char nome[],int id, int prior);
 bool pac_apagar(PACIENTE** paciente);
-void pac_imprimir(PACIENTE* paciente);
+//0: sem prioridade; 1: com prioridade
+void pac_imprimir(PACIENTE* paciente, int comprioridade);
 
 int pac_get_id(PACIENTE* paciente);
 bool pac_set_id(PACIENTE* paciente, int id);

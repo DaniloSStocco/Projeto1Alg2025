@@ -17,4 +17,6 @@
     PACIENTE* heap_remover(HEAP* h);
 
     PACIENTE* heap_topo(HEAP* h);
+
+    void heap_imprimir(HEAP* h);
 #endif

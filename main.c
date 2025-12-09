@@ -152,7 +152,6 @@ int main(){
 
     char tempnome[TAM];
     int tempid, tempprio;
-    char proced[TAM];
 
     int escolha;
     printf("---SISTEMA DE PRONTO-SOCORRO DO SUS---");
@@ -176,7 +175,7 @@ int main(){
                 scanf("%d", &tempid);
                 if(avl_buscar(Ar, tempid) == NULL){ //nao encontrou 
                     printf("\nDigite o nome do novo paciente: ");
-
+                    getchar();
                     fgets(tempnome, TAM, stdin);
                     tempnome[strcspn(tempnome, "\n")] = '\0';
                     do{
@@ -185,7 +184,7 @@ int main(){
                         if(tempprio <= 0 || tempprio > 5){
                             printf("\nPrioridade invalida, digite novamente.");
                         }
-                    }while(tempprio > 0 && tempprio <= 5);
+                    }while(tempprio <= 0 || tempprio > 5);
 
                     PACIENTE *pac = pac_criar(tempnome, tempid, tempprio);
                     avl_inserir(Ar, pac);
@@ -210,22 +209,34 @@ int main(){
             }
             case 3: // Listar Pacientes 
             {
-                
+                avl_imprimir(Ar);
                 break;
             }
             case 4: //Buscar pacientes por id
             {
-                
+                printf("\nDigite o id do paciente que deseja buscar: ");
+                scanf("%d", &tempid);
+                if(avl_buscar(Ar, tempid) != NULL){
+                    printf("\nPaciente encontrado:");
+                    pac_imprimir(avl_buscar(Ar, tempid), 0);
+                }
+                else{
+                    printf("\nPaciente nao encontrado");
+                }
                 break;
             }
             case 5: //Mostrar fila de espera
             {
-                
+                heap_imprimir(triagem);
                 break;
             }
             case 6: //Dar alta ao paciente
             {
-                
+                if(!heap_vazia(triagem)){
+                    PACIENTE* pac = heap_remover(triagem);
+                    printf("\nPaciente removido:");
+                    pac_imprimir(pac, 0);
+                }
                 break;
             }
             case 7:

@@ -228,3 +228,15 @@ PACIENTE* avl_buscar2(NO* raiz, int id){
 PACIENTE* avl_buscar(AVL *T, int id){
     return(avl_buscar2(T->raiz, id));
 }
+
+void avl_imprimir2(NO* raiz){
+    if(raiz != NULL){
+        avl_imprimir2(raiz->esq);
+        pac_imprimir(raiz->pac, 0);
+        avl_imprimir2(raiz->dir);
+    }
+}
+
+void avl_imprimir(AVL* T){
+    avl_imprimir2(T->raiz);
+}

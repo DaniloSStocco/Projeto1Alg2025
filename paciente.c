@@ -5,7 +5,7 @@ struct paciente_{
     char nome[MAX];
     int id;
     int prioridade;
-    PILHA *pilha;
+//    PILHA *pilha;
 };
 
 PACIENTE *pac_criar (char nome[],int id, int prior){
@@ -17,7 +17,7 @@ PACIENTE *pac_criar (char nome[],int id, int prior){
         strcpy(paciente->nome, nome);
         paciente->id = id;
         paciente->prioridade = prior;
-        paciente->pilha = pilha_criar();
+        //paciente->pilha = pilha_criar();
         return (paciente);
     }
     printf("Memória cheia, não foi possível adicionar esse paciente");
@@ -76,7 +76,7 @@ char *pac_get_nome(PACIENTE* paciente){
     return (NULL);
 }
 
-PILHA* pac_get_pilha(PACIENTE* paciente){
+/*PILHA* pac_get_pilha(PACIENTE* paciente){
     if(paciente != NULL){
         return(paciente->pilha);
     }
@@ -90,7 +90,7 @@ PILHA** pac_get_refpilha(PACIENTE* paciente){
     }
     printf("Esse paciente nao existe");
     return (NULL);
-}
+}*/
 
 bool pac_set_nome(PACIENTE* paciente, char nome[]){
     if(paciente != NULL){
@@ -100,7 +100,7 @@ bool pac_set_nome(PACIENTE* paciente, char nome[]){
     printf("Esse paciente nao existe");
     return(false);
 }
-
+/*
 bool pac_adicionar_historico(PACIENTE* paciente, char hist[100]){
     if(paciente != NULL){ //encontrou
         if(pilha_cheia(paciente->pilha)){
@@ -124,10 +124,13 @@ bool pac_remover_historico(PACIENTE* paciente){
     printf("Esse paciente não existe");
     return(false);
 }
-
-void pac_imprimir(PACIENTE* paciente){
+*/
+void pac_imprimir(PACIENTE* paciente, int comprioridade){
     if (paciente != NULL){
-        printf("\nNome do paciente: %s\nID do paciente: %d\n", paciente->nome, paciente->id);
+        if(!comprioridade)
+            printf("\nNome do paciente: %s\nID do paciente: %d\n", paciente->nome, paciente->id);
+        else
+            printf("\nNome do paciente: %s\nID do paciente: %d\nPrioridade do paciente: %d", paciente->nome, paciente->id, paciente->prioridade);
     }
     else
         printf("Esse paciente não existe");

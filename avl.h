@@ -12,7 +12,8 @@
     bool avl_inserir(AVL *T, PACIENTE *pac);
     PACIENTE* avl_buscar(AVL *T, int id);
     bool avl_remover(AVL *T, int id);
-    int avl_altura_no(NO* raiz);
+//    int avl_altura_no(NO* raiz);
     bool avl_vazia(AVL* T);
+    void avl_imprimir(AVL* T);
 
 #endif
